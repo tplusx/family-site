@@ -1,0 +1,21 @@
+{
+  "name": "anya-meluhor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "build:zip": "npm run build && node scripts/make-zip.mjs",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^5.13.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@types/node": "^24.2.1",
+    "typescript": "^5.9.2"
+  }
+}

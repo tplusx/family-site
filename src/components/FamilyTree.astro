@@ -1,0 +1,24 @@
+---
+import people from '../data/people.json';
+---
+<div class="tree card" data-people={JSON.stringify(people)}>
+  <div class="tree-tools"><span>Drag to move · scroll to zoom</span><button type="button" data-reset aria-label="Reset family tree view">Reset view</button></div>
+  <div class="viewport" tabindex="0" aria-label="Interactive family tree. Select a person to read their story."><svg viewBox="0 0 1200 650" role="img" aria-label="Six members across four generations"><g></g></svg></div>
+  <aside aria-live="polite"><button class="close" aria-label="Close person details">×</button><p class="eyebrow">Person profile</p><h3></h3><strong></strong><p class="summary"></p><dl><div><dt>Born</dt><dd>Family archive</dd></div><div><dt>Sources</dt><dd>3 verified records</dd></div></dl><a href="/stories" class="button secondary">Read full story →</a></aside>
+</div>
+<script>
+  type Person = {id:string;name:string;years:string;relation:string;x:number;y:number;parentIds:string[];summary:string};
+  const root = document.querySelector<HTMLElement>('.tree')!;
+  const people: Person[] = JSON.parse(root.dataset.people!);
+  const svg = root.querySelector('svg')!; const group = root.querySelector('g')!;
+  const ns='http://www.w3.org/2000/svg'; let scale=1, tx=0, ty=0, dragging=false, sx=0, sy=0;
+  const update=()=>group.setAttribute('transform',`translate(${tx} ${ty}) scale(${scale})`);
+  people.forEach(p=>p.parentIds.forEach(id=>{const parent=people.find(x=>x.id===id);if(!parent)return;const path=document.createElementNS(ns,'path');path.setAttribute('d',`M${parent.x+90} ${parent.y+90} C${parent.x+90} ${p.y-35},${p.x+90} ${parent.y+125},${p.x+90} ${p.y}`);path.classList.add('link');group.append(path)}));
+  people.forEach(p=>{const n=document.createElementNS(ns,'g');n.classList.add('person');n.setAttribute('transform',`translate(${p.x} ${p.y})`);n.setAttribute('tabindex','0');n.setAttribute('role','button');n.setAttribute('aria-label',`${p.name}, ${p.years}`);n.innerHTML=`<rect width="180" height="90" rx="14"/><circle cx="22" cy="22" r="5"/><text x="18" y="48" class="name">${p.name}</text><text x="18" y="69" class="years">${p.years}</text>`;const open=()=>{root.classList.add('open');root.querySelector('h3')!.textContent=p.name;root.querySelector('aside strong')!.textContent=`${p.years} · ${p.relation}`;root.querySelector('.summary')!.textContent=p.summary};n.addEventListener('click',open);n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});group.append(n)});
+  svg.addEventListener('wheel',e=>{e.preventDefault();scale=Math.max(.55,Math.min(2,scale*(e.deltaY>0?.9:1.1)));update()},{passive:false});
+  svg.addEventListener('pointerdown',e=>{dragging=true;sx=e.clientX-tx;sy=e.clientY-ty;svg.setPointerCapture(e.pointerId)});svg.addEventListener('pointermove',e=>{if(dragging){tx=e.clientX-sx;ty=e.clientY-sy;update()}});svg.addEventListener('pointerup',()=>dragging=false);
+  root.querySelector('[data-reset]')?.addEventListener('click',()=>{scale=1;tx=0;ty=0;update()});root.querySelector('.close')?.addEventListener('click',()=>root.classList.remove('open'));
+</script>
+<style>
+  .tree{position:relative;overflow:hidden}.tree-tools{height:50px;border-bottom:1px solid var(--line);padding:0 1rem;display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:.78rem}.tree-tools button,.close{color:var(--ink);border:1px solid var(--line);background:var(--surface-2);border-radius:999px;padding:.3rem .7rem;cursor:pointer}.viewport{height:620px;overflow:hidden}.viewport:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}svg{width:100%;height:100%;cursor:grab;touch-action:none}svg:active{cursor:grabbing}:global(.link){fill:none;stroke:var(--line);stroke-width:2}:global(.person rect){fill:var(--surface-2);stroke:var(--line)}:global(.person){cursor:pointer;outline:none}:global(.person:hover rect),:global(.person:focus rect){stroke:var(--accent);stroke-width:2}:global(.person circle){fill:var(--accent)}:global(.person text){fill:var(--ink);font-family:var(--sans)}:global(.person .name){font-size:14px;font-weight:700}:global(.person .years){fill:var(--muted);font-size:12px}aside{position:absolute;right:1rem;top:66px;width:min(340px,calc(100% - 2rem));padding:1.5rem;background:var(--surface);border:1px solid var(--line);border-radius:1rem;box-shadow:0 20px 70px #0008;transform:translateX(calc(100% + 2rem));transition:transform .25s ease}.open aside{transform:none}.close{float:right;font-size:1.2rem}aside h3{font:2rem var(--serif);margin:.7rem 0 0}aside strong{font-size:.8rem;color:var(--accent)}aside .summary{margin:1.4rem 0;color:var(--muted)}dl{border-block:1px solid var(--line);padding:.6rem 0;margin-bottom:1.2rem}dl div{display:flex;justify-content:space-between;font-size:.8rem}dt{color:var(--muted)}dd{margin:0}
+</style>

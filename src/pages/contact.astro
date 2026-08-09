@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Contact" description="Contact Anya meluhor to share a correction, photograph or family memory.">
+  <section class="shell contact"><div><p class="eyebrow">Contact</p><h1>Have something<br/>to add?</h1><p>Share a story, identify a face or suggest a correction. Every message is read with care.</p><p class="note">Please don’t include sensitive personal information.</p></div>
+    <form method="post" action="/contact.php" novalidate>
+      <label>Name<input required maxlength="80" autocomplete="name" name="name" /></label>
+      <label>Email<input required maxlength="254" autocomplete="email" inputmode="email" type="email" name="email" /></label>
+      <label>Message<textarea required minlength="10" maxlength="4000" rows="7" name="message"></textarea></label>
+      <label class="trap" aria-hidden="true">Website<input tabindex="-1" autocomplete="off" name="website" /></label>
+      <button class="button" type="submit">Send message <span aria-hidden="true">↗</span></button><p class="status" role="status"></p>
+    </form>
+  </section>
+</Layout>
+<script>
+  const form=document.querySelector<HTMLFormElement>('form')!;const status=document.querySelector<HTMLElement>('.status')!;
+  form.addEventListener('submit',async e=>{e.preventDefault();if(!form.reportValidity())return;const button=form.querySelector<HTMLButtonElement>('button')!;button.disabled=true;status.textContent='Sending…';try{const response=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});const data=await response.json();status.textContent=data.message;if(response.ok)form.reset()}catch{status.textContent='Unable to send right now. Please try again later.'}finally{button.disabled=false}});
+</script>
+<style>.contact{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(3rem,8vw,8rem);padding-block:8rem}.contact h1{font-size:clamp(3.5rem,7vw,7rem);margin:.3em 0}.contact>div>p:not(.eyebrow){max-width:34rem;color:var(--muted);font-size:1.1rem}.note{font-size:.8rem!important;border-left:2px solid var(--accent);padding-left:1rem}form{padding:2rem;border:1px solid var(--line);background:var(--surface);border-radius:1rem}label{display:grid;gap:.4rem;margin-bottom:1.3rem;font-size:.78rem;font-weight:700}input,textarea{width:100%;border:1px solid var(--line);border-radius:.5rem;padding:.75rem;background:var(--bg);color:var(--ink)}input:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:2px}.trap{position:absolute;left:-10000px}.status{color:var(--muted);font-size:.85rem;margin:1rem 0 0}.button:disabled{opacity:.5}@media(max-width:800px){.contact{grid-template-columns:1fr;padding-block:5rem}}</style>
