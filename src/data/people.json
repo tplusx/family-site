@@ -1,0 +1,8 @@
+[
+  {"id":"elias","name":"Elias Meluhor","years":"1891–1964","relation":"Great-grandfather","x":440,"y":45,"parentIds":[],"summary":"A railway clerk, patient gardener and keeper of careful journals."},
+  {"id":"mara","name":"Mara Vale","years":"1896–1978","relation":"Great-grandmother","x":690,"y":45,"parentIds":[],"summary":"A teacher whose recipes still appear at family gatherings."},
+  {"id":"theo","name":"Theo Meluhor","years":"1920–1999","relation":"Grandfather","x":565,"y":190,"parentIds":["elias","mara"],"summary":"A maker, storyteller and lifelong student of the night sky."},
+  {"id":"ines","name":"Ines Rowan","years":"1924–2008","relation":"Grandmother","x":815,"y":190,"parentIds":[],"summary":"A librarian who believed every object carried a story."},
+  {"id":"soren","name":"Soren Meluhor","years":"1951–2020","relation":"Father","x":690,"y":335,"parentIds":["theo","ines"],"summary":"A quiet optimist with an unfailing sense of direction."},
+  {"id":"anya","name":"Anya Meluhor","years":"1981–","relation":"You are here","x":690,"y":480,"parentIds":["soren"],"summary":"Collecting the fragments, photographs and voices that connect us."}
+]
