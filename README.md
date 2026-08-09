@@ -21,6 +21,8 @@ npm run dev
 
 Open `http://localhost:4321`. PHP form delivery is not available through Astro's local server; test it after deploying to cPanel or with a local PHP-capable web server.
 
+If an editor upgraded from the earlier Node version still reports that it cannot find `nodemailer`, close any deleted `src/pages/api/contact.ts` tab and restart its TypeScript server. The static cPanel version has no Nodemailer or Node-adapter dependency; `npm install` (or `npm prune` in an existing checkout) removes those obsolete packages.
+
 ## Build an uploadable ZIP
 
 Set the real public URL in `.env`, then run:
