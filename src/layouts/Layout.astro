@@ -1,0 +1,64 @@
+---
+import '../styles/global.css';
+interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const pageTitle = title === 'Anya meluhor' ? title : `${title} — Anya meluhor`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#10110f" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{pageTitle}</title>
+    <script is:inline>
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light') document.documentElement.dataset.theme = 'light';
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <header class="shell site-header">
+      <a class="brand" href="/" aria-label="Anya meluhor, home"><span>AM</span> Anya meluhor</a>
+      <nav aria-label="Main navigation">
+        <a href="/family">Family</a><a href="/stories">Stories</a><a href="/contact">Contact</a>
+      </nav>
+      <button class="theme" type="button" aria-label="Switch to light theme" aria-pressed="false"><span aria-hidden="true">◐</span><span class="theme-label">Light</span></button>
+    </header>
+    <main id="content"><slot /></main>
+    <footer class="shell"><span>© {new Date().getFullYear()} Anya meluhor</span><span>Built to preserve what matters.</span></footer>
+    <script>
+      const button = document.querySelector<HTMLButtonElement>('.theme');
+      const label = document.querySelector<HTMLElement>('.theme-label');
+      const sync = () => {
+        const light = document.documentElement.dataset.theme === 'light';
+        if (button) { button.ariaPressed = String(light); button.ariaLabel = `Switch to ${light ? 'dark' : 'light'} theme`; }
+        if (label) label.textContent = light ? 'Dark' : 'Light';
+      };
+      button?.addEventListener('click', () => {
+        const light = document.documentElement.dataset.theme === 'light';
+        if (light) delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = 'light';
+        localStorage.setItem('theme', light ? 'dark' : 'light'); sync();
+      }); sync();
+    </script>
+  </body>
+</html>
+<style>
+  .site-header { min-height: 86px; display:flex; align-items:center; gap:2rem; border-bottom:1px solid var(--line); }
+  .brand { display:flex; align-items:center; gap:.7rem; font-weight:700; text-decoration:none; margin-right:auto; }
+  .brand span { display:grid; place-items:center; width:2rem; aspect-ratio:1; border-radius:50%; background:var(--accent); color:var(--accent-ink); font-size:.68rem; }
+  nav { display:flex; gap:.25rem; padding:.3rem; border:1px solid var(--line); border-radius:999px; }
+  nav a { padding:.45rem .8rem; color:var(--muted); text-decoration:none; font-size:.88rem; border-radius:999px; }
+  nav a:hover,nav a:focus-visible { background:var(--surface-2); color:var(--ink); }
+  .theme { display:flex; gap:.4rem; border:0; background:none; color:var(--ink); cursor:pointer; }
+  footer { border-top:1px solid var(--line); padding-block:2rem 3rem; display:flex; justify-content:space-between; color:var(--muted); font-size:.85rem; }
+  @media(max-width:700px){.site-header{gap:.7rem;flex-wrap:wrap;padding-block:1rem}.brand{width:calc(100% - 5rem)}nav{order:3;width:100%;justify-content:space-around}.theme-label{display:none}}
+</style>

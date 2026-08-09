@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FamilyTree from '../components/FamilyTree.astro';
+---
+<Layout title="Family archive" description="Explore the Meluhor family across generations through people, places and sourced stories.">
+  <header class="page-head shell"><p class="eyebrow">Genealogy / six people / four generations</p><h1>Every branch<br/>holds a story.</h1><p>Explore a small demonstration archive. Select a person for context; drag and zoom to move through the generations.</p></header>
+  <section class="shell explorer"><FamilyTree /></section>
+  <section class="shell privacy"><p class="eyebrow">Private by design</p><h2>The public tree is a carefully edited view.</h2><p>Living people, sensitive notes and original records remain in the private Gramps archive. Only reviewed, publishable details belong here.</p></section>
+</Layout>
+<style>.page-head{padding-block:7rem 4rem}.page-head h1{margin:.3em 0}.page-head>p:last-child{max-width:40rem;color:var(--muted);font-size:1.1rem}.explorer{padding-bottom:8rem}.privacy{display:grid;grid-template-columns:1fr 2fr;gap:2rem;border-top:1px solid var(--line);padding-block:7rem}.privacy h2{font-size:clamp(2.5rem,5vw,4rem)}.privacy>p:last-child{grid-column:2;max-width:40rem;color:var(--muted)}@media(max-width:700px){.page-head{padding-block:5rem 3rem}.privacy{grid-template-columns:1fr}.privacy>p:last-child{grid-column:auto}}</style>
