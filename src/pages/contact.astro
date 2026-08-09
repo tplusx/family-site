@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 ---
 <Layout title="Contact" description="Contact Anya meluhor to share a correction, photograph or family memory.">
   <section class="shell contact"><div><p class="eyebrow">Contact</p><h1>Have something<br/>to add?</h1><p>Share a story, identify a face or suggest a correction. Every message is read with care.</p><p class="note">Please don’t include sensitive personal information.</p></div>
-    <form method="post" action="/api/contact" novalidate>
+    <form method="post" action="/contact.php" novalidate>
       <label>Name<input required maxlength="80" autocomplete="name" name="name" /></label>
       <label>Email<input required maxlength="254" autocomplete="email" inputmode="email" type="email" name="email" /></label>
       <label>Message<textarea required minlength="10" maxlength="4000" rows="7" name="message"></textarea></label>
