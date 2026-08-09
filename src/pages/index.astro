@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Anya meluhor" description="A quiet digital home for family histories, photographs and the stories between generations.">
+  <section class="hero shell">
+    <p class="eyebrow">A living family archive</p>
+    <h1>Stories become<br/><em>inheritance.</em></h1>
+    <div class="hero-foot">
+      <p>Tracing the people, places and small moments that made us — preserved thoughtfully for the generations still to come.</p>
+      <a class="button" href="/family">Explore the family <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+  <section class="manifesto shell">
+    <div class="number">01 / 03</div>
+    <div><p class="eyebrow">The archive</p><h2>Not just names<br/>and dates.</h2><p class="lede">A family is more than a diagram. This is a home for voices, journeys, recipes, letters and the details that official records leave out.</p></div>
+  </section>
+  <section class="features shell" aria-label="Archive highlights">
+    <article><span>01</span><h3>People</h3><p>Lives in full context, with relationships, biographies and verified sources.</p><a href="/family">Meet the family →</a></article>
+    <article><span>02</span><h3>Places</h3><p>From one street to another continent, see the landscapes behind the names.</p><a href="/stories">Browse stories →</a></article>
+    <article><span>03</span><h3>Memories</h3><p>Photographs and recollections, carefully preserved without exposing private data.</p><a href="/contact">Share a memory →</a></article>
+  </section>
+  <section class="quote shell"><p>“We inherit more than names. We inherit ways of seeing the world.”</p><span>— From the family notebook, 1957</span></section>
+</Layout>
+<style>
+  .hero{min-height:calc(100vh - 86px);padding-block:clamp(5rem,12vh,9rem) 3rem;display:flex;flex-direction:column;justify-content:center}.hero h1{margin:.2em 0}.hero em{color:var(--accent);font-weight:400}.hero-foot{display:flex;justify-content:flex-end;gap:clamp(2rem,10vw,10rem);align-items:center}.hero-foot p{max-width:31rem;color:var(--muted);font-size:1.05rem}.manifesto{display:grid;grid-template-columns:1fr 3fr;padding-block:8rem;border-top:1px solid var(--line)}.number{color:var(--muted);font-size:.8rem}.manifesto h2{margin:.3em 0}.lede{max-width:42rem;color:var(--muted);font-size:1.25rem}.features{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:1rem;overflow:hidden}.features article{padding:2rem;min-height:270px;background:var(--surface);display:flex;flex-direction:column}.features article+article{border-left:1px solid var(--line)}.features span{color:var(--accent);font-size:.75rem}.features h3{font-family:var(--serif);font-size:2rem;margin:2rem 0 .4rem}.features p{color:var(--muted)}.features a{margin-top:auto;text-decoration:none;font-weight:700}.quote{padding-block:10rem;text-align:center}.quote p{font:italic clamp(2rem,5vw,4rem)/1.15 var(--serif);max-width:900px;margin-inline:auto}.quote span{color:var(--muted)}
+  @media(max-width:700px){.hero-foot{align-items:flex-start;flex-direction:column}.manifesto{grid-template-columns:1fr;gap:2rem;padding-block:5rem}.features{grid-template-columns:1fr}.features article+article{border-left:0;border-top:1px solid var(--line)}}
+</style>
