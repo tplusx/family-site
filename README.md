@@ -67,12 +67,24 @@ After editing content, run `npm run build:zip` again and replace the files in th
 
 Never publish the raw Gramps export. Treat privacy filtering as a required build step, not a display setting.
 
+### Converting a Gramps Web export
+
+Gramps Web exports newline-delimited JSON (despite the `.json` extension). The reusable converter also accepts a regular JSON array and maps people, birth/death years, parent relationships, and a deterministic generation-based layout to the tree's public schema:
+
+```sh
+npm run convert:gramps -- cpanel/gramps-web-export-20260810153914.json /tmp/people.json
+```
+
+The output defaults to `src/data/people.json` when the second path is omitted. Records marked private are excluded by default; `--include-private` exists for controlled local work but its output must not be published. Gramps does not reliably identify living people, so review the generated file and remove living people, sensitive names, and unapproved details before copying it into the site.
+
 ## Commands
 
 | Command | Purpose |
 | --- | --- |
 | `npm run dev` | Astro development server |
 | `npm run check` | Astro and TypeScript checks |
+| `npm test` | Run converter unit tests |
+| `npm run convert:gramps -- <input> [output]` | Convert a Gramps Web export to the tree schema |
 | `npm run build` | Validate and create `dist/` |
 | `npm run build:zip` | Build and package the cPanel upload ZIP |
 | `npm run preview` | Preview the static production build |

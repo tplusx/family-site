@@ -7,8 +7,10 @@
     "dev": "astro dev",
     "build": "astro check && astro build",
     "build:zip": "npm run build && node scripts/make-zip.mjs",
+    "convert:gramps": "node scripts/convert-gramps.mjs",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "test": "node --test"
   },
   "dependencies": {
     "astro": "^5.13.0"
